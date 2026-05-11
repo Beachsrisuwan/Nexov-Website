@@ -757,6 +757,90 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* ── TABLET ── */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 30px; }
+    .nav-links li:not(:last-child) { display: none; }
+
+    .hero { padding: 120px 30px 80px; }
+    .hero h1 { font-size: 72px; }
+    .hero-sub { font-size: 15px; }
+    .hero-ctas { flex-wrap: wrap; justify-content: center; }
+
+    .intro-split { grid-template-columns: 1fr; gap: 50px; padding: 80px 30px; }
+
+    .process-section { padding: 80px 30px; }
+    .process-header { grid-template-columns: 1fr; gap: 20px; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+
+    section { padding: 80px 30px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card.featured { grid-column: span 1; grid-template-columns: 1fr; gap: 32px; }
+
+    .for-section { padding: 80px 30px; }
+    .for-grid { grid-template-columns: 1fr; }
+
+    .cta-block { margin: 0 30px 80px; padding: 60px 40px; }
+    footer { padding: 30px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    * { word-break: break-word; }
+
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+
+    .hero { padding: 100px 20px 70px; min-height: auto; }
+    .hero h1 { font-size: 52px; letter-spacing: 1px; line-height: 1; }
+    .hero-sub { font-size: 14px; max-width: 100%; margin-bottom: 36px; }
+    .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
+    .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 14px 24px; }
+    .hero-badge { font-size: 9px; letter-spacing: 2px; padding: 6px 14px; }
+    .hero-glow-1 { width: 300px; height: 300px; }
+    .hero-scroll { display: none; }
+
+    .ticker-item { padding: 0 14px; font-size: 9px; letter-spacing: 2px; }
+
+    .intro-split { grid-template-columns: 1fr; gap: 36px; padding: 60px 20px; }
+    .intro-left h2 { font-size: 38px; }
+    .intro-left p { font-size: 14px; }
+    .intro-card { padding: 18px 20px; gap: 14px; }
+    .intro-card h4 { font-size: 13px; }
+    .intro-card p { font-size: 12px; }
+
+    .process-section { padding: 60px 20px; }
+    .process-header { grid-template-columns: 1fr; gap: 14px; margin-bottom: 40px; }
+    .process-grid { grid-template-columns: 1fr; gap: 14px; }
+    .process-card { padding: 24px 20px; }
+    .process-num { font-size: 40px; }
+
+    section { padding: 60px 20px; }
+    h2 { font-size: 38px; }
+    .section-sub { font-size: 14px; margin-bottom: 40px; }
+    .services-grid { grid-template-columns: 1fr; gap: 14px; }
+    .service-card { padding: 28px 22px; }
+    .service-card.featured { grid-column: span 1; grid-template-columns: 1fr; gap: 28px; }
+    .service-tags { gap: 6px; }
+    .tag { font-size: 9px; padding: 3px 10px; }
+
+    .for-section { padding: 60px 20px; }
+    .for-grid { grid-template-columns: 1fr; gap: 14px; }
+    .for-card { padding: 24px 20px; }
+    .niche-row { gap: 8px; }
+    .niche-pill { font-size: 11px; padding: 7px 14px; }
+
+    .cta-block { margin: 0 20px 60px; padding: 44px 24px; border-radius: 20px; }
+    .cta-block h2 { font-size: 36px; }
+    .cta-block p { font-size: 14px; margin-bottom: 32px; }
+
+    footer { padding: 24px 20px; flex-direction: column; gap: 10px; text-align: center; }
+    footer p { font-size: 10px; }
+
+    .divider { margin: 0 20px; }
+  }
+
 </style>
 </head>
 <body>
