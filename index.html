@@ -1192,6 +1192,78 @@
     letter-spacing: 0.3px;
   }
 
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid rgba(240,234,216,0.15);
+    border-radius: 2px;
+    padding: 7px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .lang-btn:hover { border-color: rgba(200,169,110,0.4); color: var(--cream); }
+
+  .lang-btn .lang-flag { font-size: 14px; }
+  .lang-btn .lang-arrow { font-size: 8px; opacity: 0.5; transition: transform 0.2s; }
+  .lang-switcher.open .lang-arrow { transform: rotate(180deg); }
+
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--ink);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    min-width: 140px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 200;
+  }
+
+  .lang-switcher.open .lang-dropdown {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .lang-option:last-child { border-bottom: none; }
+  .lang-option:hover { background: var(--warm); color: var(--cream); }
+  .lang-option.active { color: var(--gold); }
+  .lang-option .flag { font-size: 16px; }
+
   /* ── HAMBURGER ── */
   .nav-hamburger {
     display: none;
@@ -1379,11 +1451,23 @@
 <nav id="nav">
   <a href="#" class="nav-logo">NEX<em>OV</em></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#apply" class="nav-cta open-modal">Apply Now</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#process" data-i18n="nav_process">Process</a></li>
+    <li><a href="#services" data-i18n="nav_services">Services</a></li>
+    <li><a href="#apply" class="nav-cta open-modal" data-i18n="nav_apply">Apply Now</a></li>
   </ul>
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn" id="langBtn">
+      <span class="lang-flag">🇬🇧</span>
+      <span id="langCurrent">EN</span>
+      <span class="lang-arrow">▼</span>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-option active" data-lang="en"><span class="flag">🇬🇧</span> English</div>
+      <div class="lang-option" data-lang="nl"><span class="flag">🇳🇱</span> Nederlands</div>
+
+    </div>
+  </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
@@ -1391,31 +1475,31 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about" class="mobile-link">About</a>
-  <a href="#process" class="mobile-link">Process</a>
-  <a href="#services" class="mobile-link">Services</a>
-  <a href="#faq" class="mobile-link">FAQ</a>
-  <button class="mobile-apply open-modal">Apply Now</button>
+  <a href="#about" class="mobile-link" data-i18n="nav_about">About</a>
+  <a href="#process" class="mobile-link" data-i18n="nav_process">Process</a>
+  <a href="#services" class="mobile-link" data-i18n="nav_services">Services</a>
+  <a href="#faq" class="mobile-link" data-i18n="nav_faq">FAQ</a>
+  <button class="mobile-apply open-modal" data-i18n="nav_apply">Apply Now</button>
 </div>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-bg-text">OPERATE</div>
 
-  <div class="hero-eyebrow">Shadow Operator for Creators</div>
+  <div class="hero-eyebrow" data-i18n="hero_eyebrow">Shadow Operator for Creators</div>
 
-  <h1>
+  <h1 data-i18n="hero_h1">
     You Create.<br>
     <em>We Operate.</em>
   </h1>
 
   <div class="hero-bottom">
     <p class="hero-sub">
-      Most creators leave <strong>90% of their revenue</strong> on the table. Nobody built the business behind their content. We do that.
+      <span data-i18n="hero_sub">Most creators leave <strong>90% of their revenue</strong> on the table. Nobody built the business behind their content. We do that.</span>
     </p>
     <div class="hero-actions">
-      <a href="#apply" class="btn-gold open-modal">Apply to Work With Us</a>
-      <a href="#process" class="btn-outline">See How It Works</a>
+      <a href="#apply" class="btn-gold open-modal" data-i18n="hero_cta1">Apply to Work With Us</a>
+      <a href="#process" class="btn-outline" data-i18n="hero_cta2">See How It Works</a>
     </div>
   </div>
 </div>
@@ -1447,28 +1531,28 @@
   <div class="statement-inner">
     <div class="statement-grid">
       <div class="reveal">
-        <span class="label">What We Do</span>
-        <p class="intro-big">
+        <span class="label" data-i18n="what_label">What We Do</span>
+        <p class="intro-big" data-i18n="what_big">
           Your audience is ready to buy.<br>
           <em>You just haven't built the system yet.</em>
         </p>
-        <p class="body-copy">
+        <p class="body-copy" data-i18n="what_p1">
           Your following is already a business. We build the backend: products, funnels, automations. You keep creating. Revenue flows.
         </p>
-        <p class="body-copy">
+        <p class="body-copy" data-i18n="what_p2">
           Pure <strong>revenue share.</strong> We only win when you win.
         </p>
       </div>
       <div class="reveal">
         <div class="no-list">
-          <div class="no-list-title">You don't need</div>
-          <div class="no-item"><div class="no-x">×</div> Business experience</div>
-          <div class="no-item"><div class="no-x">×</div> Technical skills</div>
-          <div class="no-item"><div class="no-x">×</div> Money upfront</div>
-          <div class="no-item"><div class="no-x">×</div> Time to figure it out yourself</div>
+          <div class="no-list-title" data-i18n="no_title">You don't need</div>
+          <div class="no-item"><div class="no-x">×</div> <span data-i18n="no1">Business experience</span></div>
+          <div class="no-item"><div class="no-x">×</div> <span data-i18n="no2">Technical skills</span></div>
+          <div class="no-item"><div class="no-x">×</div> <span data-i18n="no3">Money upfront</span></div>
+          <div class="no-item"><div class="no-x">×</div> <span data-i18n="no4">Time to figure it out yourself</span></div>
         </div>
         <p class="body-copy" style="font-size:14px; font-style:italic; border-left: 2px solid var(--gold-dim); padding-left:18px; color:rgba(240,234,216,0.5);">
-          "We win when you win. Your growth is the only metric we care about."
+          <span data-i18n="quote">"We win when you win. Your growth is the only metric we care about."</span>
         </p>
       </div>
     </div>
@@ -1479,26 +1563,26 @@
 <div class="process-section" id="process">
   <div class="process-header reveal">
     <div>
-      <span class="label">How It Works</span>
-      <h2 class="display">Three steps.<br><em>One outcome.</em></h2>
+      <span class="label" data-i18n="process_label">How It Works</span>
+      <h2 class="display" data-i18n="process_h">Three steps.<br><em>One outcome.</em></h2>
     </div>
-    <p>We handle the full backend while you keep showing up for your community. Most creators go live within 30 days.</p>
+    <p data-i18n="process_sub">We handle the full backend while you keep showing up for your community. Most creators go live within 30 days.</p>
   </div>
   <div class="steps reveal">
     <div class="step">
       <div class="step-num">01</div>
-      <h3>Strategy & Positioning</h3>
-      <p>We analyze your audience and niche. We find the product your followers are already asking for.</p>
+      <h3 data-i18n="step1_h">Strategy & Positioning</h3>
+      <p data-i18n="step1_p">We analyze your audience and niche. We find the product your followers are already asking for.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
-      <h3>Build & Launch</h3>
-      <p>We design the product, build the funnel on Whop, set up payments and automations. You promote it. We handle every detail.</p>
+      <h3 data-i18n="step2_h">Build & Launch</h3>
+      <p data-i18n="step2_p">We design the product, build the funnel on Whop, set up payments and automations. You promote it. We handle every detail.</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <h3>Operate & Scale</h3>
-      <p>We run the backend indefinitely. Analytics, optimization, new offers. Revenue compounds.</p>
+      <h3 data-i18n="step3_h">Operate & Scale</h3>
+      <p data-i18n="step3_p">We run the backend indefinitely. Analytics, optimization, new offers. Revenue compounds.</p>
     </div>
   </div>
 </div>
@@ -1509,17 +1593,17 @@
 <div class="services-section" id="services">
   <div class="services-header reveal">
     <div>
-      <span class="label">What We Build</span>
-      <h2 class="display">Your entire<br><em>business backend.</em></h2>
+      <span class="label" data-i18n="services_label">What We Build</span>
+      <h2 class="display" data-i18n="services_h">Your entire<br><em>business backend.</em></h2>
     </div>
-    <p>Everything you need to turn your audience into recurring revenue.</p>
+    <p data-i18n="services_sub">Everything you need to turn your audience into recurring revenue.</p>
   </div>
   <div class="services-list reveal">
     <div class="service-row">
       <div class="service-num">01</div>
       <div class="service-body">
-        <h3>Digital Product Creation</h3>
-        <p>We help you figure out what to make and how to structure it. Scripts, outlines, frameworks. So you're never stuck. You create the content. We make sure it's built to sell.</p>
+        <h3 data-i18n="s1_h">Digital Product Creation</h3>
+        <p data-i18n="s1_p">We help you figure out what to make and how to structure it. Scripts, outlines, frameworks. So you're never stuck. You create the content. We make sure it's built to sell.</p>
         <div class="service-tags">
           <span class="tag">Courses</span>
           <span class="tag">Ebooks</span>
@@ -1533,8 +1617,8 @@
     <div class="service-row">
       <div class="service-num">02</div>
       <div class="service-body">
-        <h3>Systems & Infrastructure</h3>
-        <p>Whop storefronts, email sequences, payments, analytics. Every tool set up and managed by us.</p>
+        <h3 data-i18n="s2_h">Systems & Infrastructure</h3>
+        <p data-i18n="s2_p">Whop storefronts, email sequences, payments, analytics. Every tool set up and managed by us.</p>
         <div class="service-tags">
           <span class="tag">Sales Pages</span>
           <span class="tag">Email Flows</span>
@@ -1547,15 +1631,15 @@
     <div class="service-row">
       <div class="service-num">03</div>
       <div class="service-body">
-        <h3>Monetization Strategy</h3>
-        <p>Entry-level offers to premium products. Maximum revenue per follower, zero trust burned.</p>
+        <h3 data-i18n="s3_h">Monetization Strategy</h3>
+        <p data-i18n="s3_p">Entry-level offers to premium products. Maximum revenue per follower, zero trust burned.</p>
       </div>
       <div class="service-arrow">→</div>
     </div>
     <div class="service-row">
       <div class="service-num">04</div>
       <div class="service-body">
-        <h3>Growth Infrastructure</h3>
+        <h3 data-i18n="s4_h">Growth Infrastructure</h3>
         <p>Tracking, reporting, continuous optimization. You always know what's working.</p>
       </div>
       <div class="service-arrow">→</div>
@@ -1568,34 +1652,34 @@
   <div class="for-inner">
     <div class="for-header reveal">
       <div>
-        <span class="label">Who This Is For</span>
-        <h2 class="display">Built for creators<br><em>ready to monetize right.</em></h2>
+        <span class="label" data-i18n="for_label">Who This Is For</span>
+        <h2 class="display" data-i18n="for_h">Built for creators<br><em>ready to monetize right.</em></h2>
       </div>
-      <p>We work with a small number of creators at a time. Doing this well requires focus.</p>
+      <p data-i18n="for_sub">We work with a small number of creators at a time. Doing this well requires focus.</p>
     </div>
     <div class="for-cards reveal">
       <div class="for-card is-yes">
-        <div class="for-card-label">✓ This is you</div>
-        <div class="for-item"><span class="for-icon">→</span> 10K–100K engaged followers</div>
-        <div class="for-item"><span class="for-icon">→</span> You know your niche, you have expertise to share</div>
-        <div class="for-item"><span class="for-icon">→</span> You want to monetize but haven't built the systems</div>
-        <div class="for-item"><span class="for-icon">→</span> You want a real business, not a one-off cash grab</div>
-        <div class="for-item"><span class="for-icon">→</span> You're ready to share revenue for the long term</div>
+        <div class="for-card-label" data-i18n="yes_label">✓ This is you</div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="yes1">10K–100K engaged followers</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="yes2">You know your niche, you have expertise to share</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="yes3">You want to monetize but haven't built the systems</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="yes4">You want a real business, not a one-off cash grab</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="yes5">You're ready to share revenue for the long term</span></div>
       </div>
       <div class="for-card is-no">
-        <div class="for-card-label">✗ Not a fit</div>
-        <div class="for-item"><span class="for-icon">×</span> Under 10K followers or no defined niche</div>
-        <div class="for-item"><span class="for-icon">×</span> Looking for a social media or content agency</div>
-        <div class="for-item"><span class="for-icon">×</span> Want a one-off product, no long-term partnership</div>
-        <div class="for-item"><span class="for-icon">×</span> Not willing to promote your own offers</div>
+        <div class="for-card-label" data-i18n="no_label">✗ Not a fit</div>
+        <div class="for-item"><span class="for-icon">×</span> <span data-i18n="no_f1">Under 10K followers or no defined niche</span></div>
+        <div class="for-item"><span class="for-icon">×</span> <span data-i18n="no_f2">Looking for a social media or content agency</span></div>
+        <div class="for-item"><span class="for-icon">×</span> <span data-i18n="no_f3">Want a one-off product, no long-term partnership</span></div>
+        <div class="for-item"><span class="for-icon">×</span> <span data-i18n="no_f4">Not willing to promote your own offers</span></div>
       </div>
       <div class="for-card is-model">
-        <div class="for-card-label">Our Model</div>
-        <div class="for-item"><span class="for-icon">→</span> Revenue split tracked and paid via Whop</div>
-        <div class="for-item"><span class="for-icon">→</span> Monthly payout, no invoices, no admin</div>
-        <div class="for-item"><span class="for-icon">→</span> No upfront fees or retainers</div>
-        <div class="for-item"><span class="for-icon">→</span> You create, we handle the rest</div>
-        <div class="for-item"><span class="for-icon">→</span> Everything in writing first</div>
+        <div class="for-card-label" data-i18n="model_label">Our Model</div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="model1">Revenue split tracked and paid via Whop</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="model2">Monthly payout, no invoices, no admin</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="model3">No upfront fees or retainers</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="model4">You create, we handle the rest</span></div>
+        <div class="for-item"><span class="for-icon">→</span> <span data-i18n="model5">Everything in writing first</span></div>
       </div>
     </div>
   </div>
@@ -1604,13 +1688,13 @@
 <!-- NICHES -->
 <div class="niches-section">
   <div class="reveal">
-    <span class="label">Niches We Work In</span>
+    <span class="label" data-i18n="niches_label">Niches We Work In</span>
     <div class="niches-row">
-      <span class="niche-pill">Self Improvement</span>
-      <span class="niche-pill">Confidence & Communication</span>
-      <span class="niche-pill">Discipline & Mindset</span>
-      <span class="niche-pill">Fitness & Health</span>
-      <span class="niche-pill">Personal Development</span>
+      <span class="niche-pill" data-i18n="niche1">Self Improvement</span>
+      <span class="niche-pill" data-i18n="niche2">Confidence & Communication</span>
+      <span class="niche-pill" data-i18n="niche3">Discipline & Mindset</span>
+      <span class="niche-pill" data-i18n="niche4">Fitness & Health</span>
+      <span class="niche-pill" data-i18n="niche5">Personal Development</span>
     </div>
   </div>
 </div>
@@ -1619,13 +1703,13 @@
 
 <!-- CTA -->
 <div class="cta-section reveal" id="apply">
-  <span class="label">Apply Now</span>
-  <h2 class="display">
+  <span class="label" data-i18n="cta_label">Apply Now</span>
+  <h2 class="display" data-i18n="cta_h">
     Ready to turn your<br>audience into a <em>business?</em>
   </h2>
-  <p>We take on a limited number of creators at a time. Apply below and we'll reach out within 48 hours. Everything in writing first.</p>
-  <button class="btn-gold open-modal">Apply to Work With Nexov</button>
-  <p class="cta-small">Limited spots · No upfront cost · Revenue share only</p>
+  <p data-i18n="cta_p">We take on a limited number of creators at a time. Apply below and we'll reach out within 48 hours. Everything in writing first.</p>
+  <button class="btn-gold open-modal" data-i18n="cta_btn">Apply to Work With Nexov</button>
+  <p class="cta-small" data-i18n="cta_small">Limited spots · No upfront cost · Revenue share only</p>
 </div>
 
 <!-- MODAL -->
@@ -1634,24 +1718,24 @@
     <button class="modal-close" id="modalClose" aria-label="Close">x</button>
 
     <div class="modal-form" id="modalForm">
-      <div class="modal-eyebrow">Partnership Application</div>
-      <h2 id="modal-title">Let's see if<br>we're a <em>fit.</em></h2>
-      <p class="modal-sub">Fill in the details below and we'll reach out within 48 hours. Everything happens in writing first. No calls until you're comfortable.</p>
+      <div class="modal-eyebrow" data-i18n="modal_eyebrow">Partnership Application</div>
+      <h2 id="modal-title" data-i18n="modal_h">Let's see if<br>we're a <em>fit.</em></h2>
+      <p class="modal-sub" data-i18n="modal_sub">Fill in the details below and we'll reach out within 48 hours. Everything happens in writing first. No calls until you're comfortable.</p>
 
       <div class="form-grid">
 
         <div class="form-field">
-          <label for="f-name">Full Name</label>
+          <label for="f-name" data-i18n="f_name">Full Name</label>
           <input type="text" id="f-name" placeholder="Your name" autocomplete="name">
         </div>
 
         <div class="form-field">
-          <label for="f-email">Email Address</label>
+          <label for="f-email" data-i18n="f_email">Email Address</label>
           <input type="email" id="f-email" placeholder="you@email.com" autocomplete="email">
         </div>
 
         <div class="form-field full">
-          <label for="f-platform">Main Platform</label>
+          <label for="f-platform" data-i18n="f_platform">Main Platform</label>
           <select id="f-platform">
             <option value="" disabled selected>Select your platform</option>
             <option>Instagram</option>
@@ -1664,7 +1748,7 @@
         </div>
 
         <div class="form-field">
-          <label for="f-followers">Follower Count</label>
+          <label for="f-followers" data-i18n="f_followers">Follower Count</label>
           <select id="f-followers">
             <option value="" disabled selected>Select range</option>
             <option>10K - 25K</option>
@@ -1675,7 +1759,7 @@
         </div>
 
         <div class="form-field">
-          <label for="f-niche">Your Niche</label>
+          <label for="f-niche" data-i18n="f_niche">Your Niche</label>
           <select id="f-niche">
             <option value="" disabled selected>Select your niche</option>
             <option>Self Improvement</option>
@@ -1688,20 +1772,20 @@
         </div>
 
         <div class="form-field full">
-          <label for="f-link">Profile Link</label>
+          <label for="f-link" data-i18n="f_link">Profile Link</label>
           <input type="url" id="f-link" placeholder="https://instagram.com/yourhandle">
         </div>
 
         <div class="form-divider"></div>
 
         <div class="form-field full">
-          <label for="f-goal">What is your main goal?</label>
+          <label for="f-goal" data-i18n="f_goal">What is your main goal?</label>
           <textarea id="f-goal" placeholder="Tell us what you're trying to build and where you're stuck. The more specific, the better."></textarea>
         </div>
 
         <div class="form-submit">
           <p class="form-note">We'll reply within 48 hours.<br>No upfront cost. Revenue share only.</p>
-          <button class="btn-submit" id="submitBtn" type="button">Send Application</button>
+          <button class="btn-submit" id="submitBtn" type="button" data-i18n="f_submit">Send Application</button>
         </div>
 
       </div>
@@ -1709,8 +1793,8 @@
 
     <div class="modal-success" id="modalSuccess">
       <div class="success-icon">v</div>
-      <h3>Application<br><em>received.</em></h3>
-      <p>We'll review your details and reach out within 48 hours. We'll handle everything in writing first. No pressure, no calls until you're ready.</p>
+      <h3 data-i18n="success_h">Application<br><em>received.</em></h3>
+      <p data-i18n="success_p">We'll review your details and reach out within 48 hours. We'll handle everything in writing first. No pressure, no calls until you're ready.</p>
     </div>
   </div>
 </div>
@@ -1720,70 +1804,70 @@
 <div class="faq-section" id="faq">
   <div class="faq-header reveal">
     <div>
-      <span class="label">FAQ</span>
-      <h2 class="display">Common<br><em>questions.</em></h2>
+      <span class="label" data-i18n="faq_label">FAQ</span>
+      <h2 class="display" data-i18n="faq_h">Common<br><em>questions.</em></h2>
     </div>
-    <p>Still have questions? Send us a message and we'll sort it out in writing before anything else.</p>
+    <p data-i18n="faq_sub">Still have questions? Send us a message and we'll sort it out in writing before anything else.</p>
   </div>
   <div class="faq-list reveal">
 
     <div class="faq-item">
       <button class="faq-question">
-        <span>How does the revenue share work?</span>
+        <span data-i18n="faq1_q">How does the revenue share work?</span>
         <em class="faq-icon">+</em>
       </button>
       <div class="faq-answer">
-        <p>Everything runs through Whop. The platform tracks every sale automatically and pays out monthly based on the agreed split. No invoices, no chasing payments. Whop handles all of it. You just check your balance at the end of the month.</p>
+        <p data-i18n="faq1_a">Everything runs through Whop. The platform tracks every sale automatically and pays out monthly based on the agreed split. No invoices, no chasing payments. Whop handles all of it. You just check your balance at the end of the month.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">
-        <span>What if I don't have a product yet?</span>
+        <span data-i18n="faq2_q">What if I don't have a product yet?</span>
         <em class="faq-icon">+</em>
       </button>
       <div class="faq-answer">
-        <p>No problem. We help you figure out what to make and how to structure it. We write scripts, outlines and frameworks so you always know exactly what to record or write. You're the one creating it. We make sure you're never staring at a blank page.</p>
+        <p data-i18n="faq2_a">No problem. We help you figure out what to make and how to structure it. We write scripts, outlines and frameworks so you always know exactly what to record or write. You're the one creating it. We make sure you're never staring at a blank page.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">
-        <span>How long until I'm live?</span>
+        <span data-i18n="faq3_q">How long until I'm live?</span>
         <em class="faq-icon">+</em>
       </button>
       <div class="faq-answer">
-        <p>Most partners go live within 3 to 4 weeks. It depends on the product and how quickly we can align on positioning. We keep everything moving through written updates so nothing gets lost.</p>
+        <p data-i18n="faq3_a">Most partners go live within 3 to 4 weeks. It depends on the product and how quickly we can align on positioning. We keep everything moving through written updates so nothing gets lost.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">
-        <span>Do I need to be involved in the build?</span>
+        <span data-i18n="faq4_q">Do I need to be involved in the build?</span>
         <em class="faq-icon">+</em>
       </button>
       <div class="faq-answer">
-        <p>Minimal involvement required. We'll need your input at the start to understand your audience and goals. After that, we handle everything. You focus on content and promoting to your audience.</p>
+        <p data-i18n="faq4_a">Minimal involvement required. We'll need your input at the start to understand your audience and goals. After that, we handle everything. You focus on content and promoting to your audience.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">
-        <span>What if it doesn't work?</span>
+        <span data-i18n="faq5_q">What if it doesn't work?</span>
         <em class="faq-icon">+</em>
       </button>
       <div class="faq-answer">
-        <p>We only make money when you make money. If something isn't converting, it's our problem too. We iterate, optimize and test until it does. We're not going anywhere.</p>
+        <p data-i18n="faq5_a">We only make money when you make money. If something isn't converting, it's our problem too. We iterate, optimize and test until it does. We're not going anywhere.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">
-        <span>Which platform do you sell on?</span>
+        <span data-i18n="faq6_q">Which platform do you sell on?</span>
         <em class="faq-icon">+</em>
       </button>
       <div class="faq-answer">
-        <p>We use Whop as our primary platform for hosting and selling digital products. It's built for creators and handles payments, delivery and community all in one place.</p>
+        <p data-i18n="faq6_a">We use Whop as our primary platform for hosting and selling digital products. It's built for creators and handles payments, delivery and community all in one place.</p>
       </div>
     </div>
 
@@ -1795,27 +1879,27 @@
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">NEX<em>OV</em></div>
-      <p>We build the business behind your content. You create. We operate.</p>
+      <p data-i18n="footer_tagline">We build the business behind your content. You create. We operate.</p>
     </div>
     <div class="footer-col">
-      <h5>Navigate</h5>
+      <h5 data-i18n="footer_nav">Navigate</h5>
       <a href="#about">What We Do</a>
       <a href="#process">How It Works</a>
       <a href="#services">Services</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="footer-col">
-      <h5>Contact</h5>
+      <h5 data-i18n="footer_contact">Contact</h5>
       <a href="mailto:info@nexovgrowth.com">info@nexovgrowth.com</a>
       <a href="#apply" class="open-modal">Apply Now</a>
     </div>
     <div class="footer-col">
-      <h5>Follow</h5>
+      <h5 data-i18n="footer_follow">Follow</h5>
       <a href="https://instagram.com/nexovgrowth" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 Nexov Growth. You create, we operate.</p>
+    <p data-i18n="footer_copy">© 2025 Nexov Growth. You create, we operate.</p>
   </div>
 </footer>
 
@@ -1855,6 +1939,200 @@
       document.body.style.overflow = '';
     });
   });
+
+
+  // ── TRANSLATIONS ──
+  const translations = {
+    en: {
+      nav_about: `About`, nav_process: "Process", nav_services: "Services", nav_apply: "Apply Now",
+      nav_faq: `FAQ`,
+      hero_eyebrow: `Shadow Operator for Creators`,
+      hero_h1: `You Create.<br><em>We Operate.</em>`,
+      hero_sub: `<span data-i18n="hero_sub">Most creators leave <strong>90% of their revenue</strong> on the table. Nobody built the business behind their content. We do that.</span>`,
+      hero_cta1: `Apply to Work With Us`, hero_cta2: "See How It Works",
+      what_label: `What We Do`,
+      what_big: `Your audience is ready to buy.<br><em>You just haven't built the system yet.</em>`,
+      what_p1: `Your following is already a business. We build the backend: products, funnels, automations. You keep creating. Revenue flows.`,
+      what_p2: `Pure <strong>revenue share.</strong> We only win when you win.`,
+      no_title: "You don't need",
+      no1: `Business experience`, no2: "Technical skills", no3: "Money upfront", no4: "Time to figure it out yourself",
+      quote: `<span data-i18n="quote">"We win when you win. Your growth is the only metric we care about."</span>`,
+      process_label: `How It Works`,
+      process_h: `Three steps.<br><em>One outcome.</em>`,
+      process_sub: `We handle the full backend while you keep showing up for your community. Most creators go live within 30 days.`,
+      step1_h: `Strategy & Positioning`, step1_p: "We analyze your audience and niche. We find the product your followers are already asking for.",
+      step2_h: `Build & Launch`, step2_p: "We design the product, build the funnel on Whop, set up payments and automations. You promote it. We handle every detail.",
+      step3_h: `Operate & Scale`, step3_p: "We run the backend indefinitely. Analytics, optimization, new offers. Revenue compounds.",
+      services_label: `What We Build`,
+      services_h: `Your entire<br><em>business backend.</em>`,
+      services_sub: `Everything you need to turn your audience into recurring revenue.`,
+      s1_h: `Digital Product Creation`, s1_p: `We help you figure out what to make and how to structure it. Scripts, outlines, frameworks. So you're never stuck. You create the content. We make sure it's built to sell.`,
+      s2_h: `Systems & Infrastructure`, s2_p: "Whop storefronts, email sequences, payments, analytics. Every tool set up and managed by us.",
+      s3_h: `Monetization Strategy`, s3_p: "Entry-level offers to premium products. Maximum revenue per follower, zero trust burned.",
+      s4_h: `Growth Infrastructure`, s4_p: `Tracking, reporting, continuous optimization. You always know what's working.`,
+      for_label: `Who This Is For`,
+      for_h: `Built for creators<br><em>ready to monetize right.</em>`,
+      for_sub: `We work with a small number of creators at a time. Doing this well requires focus.`,
+      yes_label: `✓ This is you`,
+      yes1: `10K–100K engaged followers`, yes2: `You know your niche, you have expertise to share`, yes3: `You want to monetize but haven't built the systems`, yes4: `You want a real business, not a one-off cash grab`, yes5: `You're ready to share revenue for the long term`,
+      no_label: `✗ Not a fit`,
+      no_f1: `Under 10K followers or no defined niche`, no_f2: "Looking for a social media or content agency", no_f3: "Want a one-off product, no long-term partnership", no_f4: "Not willing to promote your own offers",
+      model_label: `Our Model`,
+      model1: `Revenue split tracked and paid via Whop`, model2: "Monthly payout, no invoices, no admin", model3: "No upfront fees or retainers", model4: "You create, we handle the rest", model5: "Everything in writing first",
+      niches_label: `Niches We Work In`,
+      niche1: `Self Improvement`, niche2: `Confidence & Communication`, niche3: `Discipline & Mindset`, niche4: `Fitness & Health`, niche5: `Personal Development`,
+      cta_label: `Apply Now`,
+      cta_h: `Ready to turn your<br>audience into a <em>business?</em>`,
+      cta_p: `We take on a limited number of creators at a time. Apply below and we'll reach out within 48 hours. Everything in writing first.`,
+      cta_btn: `Apply to Work With Nexov`,
+      cta_small: `Limited spots · No upfront cost · Revenue share only`,
+      faq_label: `FAQ`,
+      faq_h: `Common<br><em>questions.</em>`,
+      faq_sub: `Still have questions? Send us a message and we'll sort it out in writing before anything else.`,
+      faq1_q: `How does the revenue share work?`, faq1_a: "Everything runs through Whop. The platform tracks every sale automatically and pays out monthly based on the agreed split. No invoices, no chasing payments. Whop handles all of it. You just check your balance at the end of the month.",
+      faq2_q: `What if I don't have a product yet?`, faq2_a: `No problem. We help you figure out what to make and how to structure it. We write scripts, outlines and frameworks so you always know exactly what to record or write. You're the one creating it. We make sure you're never staring at a blank page.`,
+      faq3_q: `How long until I'm live?`, faq3_a: "Most partners go live within 3 to 4 weeks. It depends on the product and how quickly we can align on positioning. We keep everything moving through written updates so nothing gets lost.",
+      faq4_q: `Do I need to be involved in the build?`, faq4_a: `Minimal involvement required. We'll need your input at the start to understand your audience and goals. After that, we handle everything. You focus on content and promoting to your audience.`,
+      faq5_q: `What if it doesn't work?`, faq5_a: `We only make money when you make money. If something isn't converting, it's our problem too. We iterate, optimize and test until it does. We're not going anywhere.`,
+      faq6_q: `Which platform do you sell on?`, faq6_a: `We use Whop as our primary platform for hosting and selling digital products. It's built for creators and handles payments, delivery and community all in one place.`,
+      footer_tagline: `We build the business behind your content. You create. We operate.`,
+      footer_nav: `Navigate`, footer_contact: `Contact`, footer_follow: `Follow`,
+      footer_copy: `© 2025 Nexov Growth. You create, we operate.`,
+      modal_eyebrow: `Partnership Application`,
+      modal_h: `Let's see if<br>we're a <em>fit.</em>`,
+      modal_sub: `Fill in the details below and we'll reach out within 48 hours. Everything happens in writing first. No calls until you're comfortable.`,
+      f_name: `Full Name`, f_name_ph: "Your name",
+      f_email: `Email Address`, f_email_ph: "you@email.com",
+      f_platform: `Main Platform`, f_platform_ph: "Select your platform",
+      f_followers: `Follower Count`, f_followers_ph: "Select range",
+      f_niche: `Your Niche`, f_niche_ph: "Select your niche",
+      f_link: `Profile Link`, f_link_ph: "https://instagram.com/yourhandle",
+      f_goal: `What is your main goal?`, f_goal_ph: `Tell us what you're trying to build and where you're stuck. The more specific, the better.`,
+      f_note: `We'll reply within 48 hours.<br>No upfront cost. Revenue share only.`,
+      f_submit: `Send Application`,
+      success_h: `Application<br><em>received.</em>`,
+      success_p: `We'll review your details and reach out within 48 hours. We'll handle everything in writing first. No pressure, no calls until you're ready.`,
+    },
+    nl: {
+      nav_about: `Over Ons`, nav_process: "Werkwijze", nav_services: "Diensten", nav_apply: "Aanmelden",
+      nav_faq: `FAQ`,
+      hero_eyebrow: `Jouw zakelijke partner op de achtergrond`,
+      hero_h1: `Jij Maakt Content.<br><em>Wij Regelen de Rest.</em>`,
+      hero_sub: `De meeste creators laten <strong>90% van hun omzet</strong> liggen. Niemand bouwde het bedrijf achter hun content. Dat doen wij.`,
+      hero_cta1: `Aanmelden`, hero_cta2: "Hoe het werkt",
+      what_label: `Wat We Doen`,
+      what_big: `Je following is klaar om te kopen.<br><em>Je hebt alleen nog geen systeem om ze om te zetten naar omzet.</em>`,
+      what_p1: `Wij bouwen dat systeem voor je. Producten, funnels, automaties. Jij blijft content maken. De inkomsten volgen.`,
+      what_p2: `Puur <strong>revenue share.</strong> Wij verdienen alleen als jij verdient.`,
+      no_title: `Dit heb je niet nodig`,
+      no1: `Ervaring in het bedrijfsleven`, no2: "Technische kennis", no3: "Geld vooraf", no4: "Tijd om het zelf uit te zoeken",
+      quote: `"Wij verdienen alleen als jij verdient. Jouw groei is ons enige doel."`,
+      process_label: `Hoe het Werkt`,
+      process_h: `Drie stappen.<br><em>Één resultaat.</em>`,
+      process_sub: `Wij regelen de volledige backend terwijl jij content blijft maken. De meeste partners gaan binnen 30 dagen live.`,
+      step1_h: `Strategie & Positionering`, step1_p: "We analyseren jouw publiek en niche. We vinden het product waar jouw volgers al om vragen.",
+      step2_h: `Bouwen & Lanceren`, step2_p: "We ontwerpen het product, bouwen de funnel op Whop en zetten betalingen en automaties op. Jij promoot het. Wij regelen elk detail.",
+      step3_h: `Beheren & Groeien`, step3_p: "We runnen de backend continu. Analytics, optimalisatie, nieuwe aanbiedingen. Omzet groeit.",
+      services_label: `Wat We Bouwen`,
+      services_h: `Jouw volledige<br><em>zakelijke backend.</em>`,
+      services_sub: `Alles wat je nodig hebt om jouw publiek om te zetten in terugkerende omzet.`,
+      s1_h: `Digitaal Product Maken`, s1_p: "We helpen je bepalen wat je maakt en hoe je het structureert. Scripts, uitlijnen, frameworks. Zodat je nooit vastloopt. Jij maakt de content. Wij zorgen dat het verkoopt.",
+      s2_h: `Systemen & Infrastructuur`, s2_p: "Whop winkels, e-mailsequenties, betalingen, analytics. Elk hulpmiddel opgezet en beheerd door ons.",
+      s3_h: `Monetisatiestrategie`, s3_p: "Van instapproducten tot premium aanbiedingen. Maximale omzet per volger, zonder vertrouwen te beschadigen.",
+      s4_h: `Groei-infrastructuur`, s4_p: "Tracking, rapportage, continue optimalisatie. Je weet altijd wat werkt.",
+      for_label: `Voor Wie`,
+      for_h: `Gebouwd voor creators<br><em>die klaar zijn om te monetiseren.</em>`,
+      for_sub: `We werken met een klein aantal creators tegelijk. Goed werk vereist focus.`,
+      yes_label: `✓ Dit ben jij`,
+      yes1: `10K–100K betrokken volgers`, yes2: `Je kent je niche en hebt expertise`, yes3: `Je wil monetiseren maar hebt de systemen nog niet`, yes4: `Je wil meer uit je content halen dan likes alleen`, yes5: `Je bent open voor een langdurige samenwerking`,
+      no_label: `✗ Geen match`,
+      no_f1: `Minder dan 10K volgers of geen duidelijke niche`, no_f2: "Op zoek naar een social media of content agency", no_f3: "Wil een eenmalig product zonder langetermijnpartnerschap", no_f4: "Niet bereid om je eigen aanbod te promoten",
+      model_label: `Ons Model`,
+      model1: `Omzetverdeling bijgehouden en uitbetaald via Whop`, model2: "Maandelijkse uitbetaling, geen facturen, geen gedoe", model3: "Geen kosten vooraf of maandelijkse vergoedingen", model4: "Jij maakt content, wij regelen de rest", model5: "Alles eerst schriftelijk",
+      niches_label: `Niches Waarin We Werken`,
+      niche1: `Zelfverbetering`, niche2: `Zelfvertrouwen & Communicatie`, niche3: `Discipline & Mindset`, niche4: `Fitness & Gezondheid`, niche5: `Persoonlijke Ontwikkeling`,
+      cta_label: `Aanmelden`,
+      cta_h: `Klaar om van jouw publiek<br>een <em>bedrijf te maken?</em>`,
+      cta_p: `We nemen een beperkt aantal creators tegelijk aan. Meld je aan en we nemen binnen 48 uur contact op. Alles eerst schriftelijk.`,
+      cta_btn: `Aanmelden bij Nexov`,
+      cta_small: `Beperkte plekken · Geen kosten vooraf · Alleen revenue share`,
+      faq_label: `FAQ`,
+      faq_h: `Veelgestelde<br><em>vragen.</em>`,
+      faq_sub: `Nog vragen? Stuur ons een bericht en we lossen het schriftelijk op.`,
+      faq1_q: `Hoe werkt de revenue share?`, faq1_a: "Alles loopt via Whop. Het platform houdt elke verkoop automatisch bij en betaalt maandelijks uit op basis van de afgesproken verdeling. Geen facturen, geen gedoe. Whop regelt het allemaal.",
+      faq2_q: `Wat als ik nog geen product heb?`, faq2_a: "Geen probleem. Wij helpen je bepalen wat je maakt en hoe je het structureert. We schrijven scripts, uitlijnen en frameworks zodat je altijd precies weet wat je moet opnemen of schrijven.",
+      faq3_q: `Hoe lang duurt het voor ik live ga?`, faq3_a: "De meeste partners gaan binnen 3 tot 4 weken live. Het hangt af van het product en hoe snel we de positionering kunnen afstemmen.",
+      faq4_q: `Moet ik betrokken zijn bij het bouwen?`, faq4_a: "Minimale betrokkenheid vereist. We hebben je input nodig aan het begin. Daarna regelen wij alles. Jij focust op content.",
+      faq5_q: `Wat als het niet werkt?`, faq5_a: "Wij verdienen alleen geld als jij geld verdient. Als iets niet converteert, is het ons probleem ook. We blijven itereren en optimaliseren.",
+      faq6_q: `Op welk platform verkopen jullie?`, faq6_a: "We gebruiken Whop als ons primaire platform voor het hosten en verkopen van digitale producten. Gebouwd voor creators en regelt betalingen, levering en community op één plek.",
+      footer_tagline: `Wij bouwen het bedrijf achter jouw content. Jij maakt. Wij regelen.`,
+      footer_nav: `Navigatie`, footer_contact: "Contact", footer_follow: "Volgen",
+      footer_copy: `© 2025 Nexov Growth. Jij maakt, wij regelen.`,
+      modal_eyebrow: `Partnerschap Aanmelding`,
+      modal_h: `Laten we kijken of<br>we een <em>match zijn.</em>`,
+      modal_sub: `Vul de details in en we nemen binnen 48 uur contact op. Alles eerst schriftelijk. Geen gesprekken totdat je er klaar voor bent.`,
+      f_name: `Volledige Naam`, f_name_ph: "Jouw naam",
+      f_email: `E-mailadres`, f_email_ph: "jij@email.com",
+      f_platform: `Hoofdplatform`, f_platform_ph: "Kies je platform",
+      f_followers: `Aantal Volgers`, f_followers_ph: "Kies een bereik",
+      f_niche: `Jouw Niche`, f_niche_ph: "Kies je niche",
+      f_link: `Profiellink`, f_link_ph: "https://instagram.com/jouwhandle",
+      f_goal: `Wat is jouw hoofddoel?`, f_goal_ph: "Vertel ons wat je wil bouwen en waar je vastloopt. Hoe specifieker, hoe beter.",
+      f_note: `We reageren binnen 48 uur.<br>Geen kosten vooraf. Alleen revenue share.`,
+      f_submit: `Aanmelding Versturen`,
+      success_h: `Aanmelding<br><em>ontvangen.</em>`,
+      success_p: `We beoordelen je gegevens en nemen binnen 48 uur contact op. Alles eerst schriftelijk. Geen druk, geen gesprekken totdat je er klaar voor bent.`,
+    },
+  };
+
+  // Apply translations
+  function applyLang(lang) {
+    const t = translations[lang];
+    if (!t) return;
+
+    // Nav
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
+    // Lang switcher UI
+    document.getElementById('langCurrent').textContent = lang.toUpperCase();
+    const flags = { en: '🇬🇧', nl: '🇳🇱', de: '🇩🇪', es: '🇪🇸' };
+    document.querySelector('.lang-flag').textContent = flags[lang];
+    document.querySelectorAll('.lang-option').forEach(o => {
+      o.classList.toggle('active', o.dataset.lang === lang);
+    });
+
+    // Save preference
+    localStorage.setItem('nexov_lang', lang);
+  }
+
+  // Language switcher toggle
+  const langSwitcher = document.getElementById('langSwitcher');
+  const langBtn = document.getElementById('langBtn');
+  const langDropdown = document.getElementById('langDropdown');
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langSwitcher.classList.toggle('open');
+  });
+
+  document.addEventListener('click', () => langSwitcher.classList.remove('open'));
+
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      applyLang(opt.dataset.lang);
+      langSwitcher.classList.remove('open');
+    });
+  });
+
+  // Auto-detect language on load
+  const savedLang = localStorage.getItem('nexov_lang');
+  const browserLang = navigator.language.slice(0, 2);
+  const supportedLangs = ['en', 'nl'];
+  const initLang = savedLang || (supportedLangs.includes(browserLang) ? browserLang : 'en');
+  applyLang(initLang);
 
   // FAQ accordion
   document.querySelectorAll('.faq-question').forEach(btn => {
