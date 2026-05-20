@@ -1898,11 +1898,14 @@
     if (e.key === 'Escape') closeModal();
   });
 
-  submitBtn.addEventListener('click', () => {
+  submitBtn.addEventListener('click', async () => {
     const name = document.getElementById('f-name').value.trim();
     const email = document.getElementById('f-email').value.trim();
     const platform = document.getElementById('f-platform').value;
     const followers = document.getElementById('f-followers').value;
+    const niche = document.getElementById('f-niche').value;
+    const link = document.getElementById('f-link').value.trim();
+    const goal = document.getElementById('f-goal').value.trim();
 
     if (!name || !email || !platform || !followers) {
       const fields = [
@@ -1923,10 +1926,34 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
-    setTimeout(() => {
-      modalForm.classList.add('hide');
-      modalSuccess.classList.add('show');
-    }, 800);
+    try {
+      const response = await fetch('https://formspree.io/f/xwvzlwza', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          platform: platform,
+          followers: followers,
+          niche: niche,
+          profile_link: link,
+          goal: goal
+        })
+      });
+
+      if (response.ok) {
+        modalForm.classList.add('hide');
+        modalSuccess.classList.add('show');
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Application';
+        alert('Something went wrong. Please try again or email us at info@nexovgrowth.com');
+      }
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Application';
+      alert('Something went wrong. Please try again or email us at info@nexovgrowth.com');
+    }
   });
 </script>
 
